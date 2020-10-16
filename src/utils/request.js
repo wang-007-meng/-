@@ -2,7 +2,10 @@ import axios from "axios"
 import qs from "qs"
 import Vue from "vue"
 import store from "../store"
-
+import {
+  warningAlert
+} from "./alert"
+import router from "../router"
 
 // 开发环境下使用
 Vue.prototype.$imgPre = "http://localhost:3000"
@@ -25,6 +28,12 @@ axios.interceptors.response.use(res => {
   console.group("本次请求的路径是：" + res.config.url)
   console.log(res);
   console.groupEnd()
+
+  // 用户掉线
+  if (res.data.msg == "登录已过期或访问权限受限") {
+    warningAlert(res.data.msg)
+    router.push("/login")
+  }
   return res;
 })
 
@@ -372,5 +381,148 @@ export const reqGoodsUpdate = (form) => {
     url: baseUrl + "/api/goodsedit",
     method: "post",
     data: data
+  })
+}
+
+
+//-------------------会员管理----------
+
+
+//列表
+export const reqMemberList = () => {
+  return axios({
+    url: baseUrl + "/api/memberlist",
+    method: "get",
+  })
+}
+
+//1条
+export const reqMemberDetail = (uid) => {
+  return axios({
+    url: baseUrl + "/api/memberinfo",
+    method: "get",
+    params: {
+      uid: uid
+    }
+  })
+}
+
+//修改
+export const reqMemberUpdate = (params) => {
+  return axios({
+    url: baseUrl + "/api/memberedit",
+    method: "post",
+    data: qs.stringify(params)
+  })
+}
+
+
+//-------------------轮播图管理----------
+//添加 params={title:name,img:File,status:1}
+export const reqBannerAdd = (params) => {
+  let data = new FormData()
+  for (let i in params) {
+    data.append(i, params[i])
+  }
+  return axios({
+    url: baseUrl + "/api/banneradd",
+    method: "post",
+    data: data
+  })
+}
+
+
+
+//列表 
+export const reqBannerList = () => {
+  return axios({
+    url: baseUrl + "/api/bannerlist",
+    method: "get",
+  })
+}
+//删除
+export const reqBannerDel = (id) => {
+  return axios({
+    url: baseUrl + "/api/bannerdelete",
+    method: "post",
+    data: qs.stringify({
+      id: id
+    })
+  })
+}
+
+//1条
+export const reqBannerDetail = (id) => {
+  return axios({
+    url: baseUrl + "/api/bannerinfo",
+    method: "get",
+    params: {
+      id: id
+    }
+  })
+}
+
+//修改
+export const reqBannerUpdate = (params) => {
+  let data = new FormData()
+  for (let i in params) {
+    data.append(i, params[i])
+  }
+  return axios({
+    url: baseUrl + "/api/banneredit",
+    method: "post",
+    data: data
+  })
+}
+
+
+// =========活动秒杀===============
+//添加
+export const reqSeckillAdd = (params) => {
+  return axios({
+    url: baseUrl + "/api/seckadd",
+    method: "post",
+    data: qs.stringify(params)
+  })
+}
+
+
+
+//列表 
+export const reqSeckillList = (params) => {
+  return axios({
+    url: baseUrl + "/api/secklist",
+    method: "get",
+    data: qs.stringify(params)
+  })
+}
+//删除
+export const reqSeckillDel = (id) => {
+  return axios({
+    url: baseUrl + "/api/seckdelete",
+    method: "post",
+    data: qs.stringify({
+      id: id
+    })
+  })
+}
+
+//1条详情  params = {id:"1"}
+export const reqSeckillDetail = (id) => {
+  return axios({
+    url: baseUrl + "/api/seckinfo",
+    method: "get",
+    params: {
+      id: id
+    }
+  })
+}
+
+//修改
+export const reqSeckillUpdate = (params) => {
+  return axios({
+    url: baseUrl + "/api/seckedit",
+    method: "post",
+    data: qs.stringify(params)
   })
 }
