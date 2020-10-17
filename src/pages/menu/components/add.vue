@@ -110,6 +110,8 @@ export default {
     //取消
     cancel() {
       this.info.isshow = false;
+      // 重置
+      this.empty();
     },
     //弹框消失完成
     close() {
@@ -137,8 +139,31 @@ export default {
         this.form.type = 2;
       }
     },
+
+    // 验证
+    checkedData() {
+      //菜单名称不能为空
+      if (this.form.title == "") {
+        warningAlert("菜单名称不能为空");
+        return false;
+      }
+      if (this.form.type == 1 && this.form.icon == "") {
+        warningAlert("图标不能为空");
+        return false;
+      }
+      if (this.form.type == 2 && this.form.url == "") {
+        warningAlert("地址不能为空");
+        return false;
+      }
+      return true;
+    },
+
     //点击了添加按钮
     add() {
+      // 判断
+      if (!this.checkedData()) {
+        return;
+      }
       reqMenuAdd(this.form).then((res) => {
         if (res.data.code == 200) {
           //成功
@@ -172,6 +197,10 @@ export default {
     },
     //修改
     update() {
+      // 判断
+      if (!this.checkedData()) {
+        return;
+      }
       reqMenuUpdate(this.form).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.msg);

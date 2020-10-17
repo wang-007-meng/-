@@ -9,6 +9,32 @@
         <el-form-item label="活动名称">
           <el-input v-model="form.title"></el-input>
         </el-form-item>
+        <!-- 时间开始 -->
+
+        <!-- <div class="block">
+          <span class="demonstration">默认</span>
+          <el-date-picker
+            v-model="value1"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          >
+          </el-date-picker>
+        </div> -->
+        <el-form-item label="活动期限">
+          <el-date-picker
+            v-model="value1"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          >
+          </el-date-picker>
+        </el-form-item>
+
+        <!-- 时间结束 -->
+
         <el-form-item label="一级分类">
           <el-select v-model="form.first_cateid" @change="changeFirst">
             <el-option label="请选择" value="" disabled></el-option>
@@ -78,6 +104,7 @@ export default {
   components: {},
   data() {
     return {
+      value1: [],
       form: {
         title: "",
         begintime: "",
@@ -151,6 +178,7 @@ export default {
     },
     // 数据重置
     empty() {
+      this.value1 = [];
       this.form = {
         title: "",
         begintime: "",
@@ -170,6 +198,9 @@ export default {
     // 点击添加按钮
     add() {
       console.log(this.form);
+      // 时间
+      this.form.begintime = this.value1[0].getTime();
+      this.form.endtime = this.value1[1].getTime();
       reqSeckillAdd(this.form).then((res) => {
         if (res.data.code == 200) {
           // 成功
@@ -195,6 +226,11 @@ export default {
           this.form = res.data.list;
           // 补个id
           this.form.id = id;
+          this.value1 = [
+            // 查看时间
+            new Date(parseInt(this.form.begintime)),
+            new Date(parseInt(this.form.endtime)),
+          ];
           // 需要请求一下二级分类的list
           this.getSecondList();
           this.changeSecond();

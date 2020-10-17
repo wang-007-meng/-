@@ -4,7 +4,6 @@
     style="width: 100%; margin-bottom: 20px"
     row-key="id"
     border
-    default-expand-all
     :tree-props="{ children: 'children' }"
   >
     <el-table-column prop="id" label="菜单编号" sortable width="180">

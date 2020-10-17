@@ -96,9 +96,29 @@ export default {
       this.$refs.tree.setCheckedKeys([]);
     },
 
+    // 验证
+    checkedData() {
+      //角色名称不能为空
+      if (this.form.rolename == "") {
+        warningAlert("角色名称不能为空");
+        return false;
+      }
+
+      // 验证树形控件不能为空
+      // if (this.form.menus == "[]") {
+      //   warningAlert("请选择角色权限");
+      //   return false;
+      // }
+      return true;
+    },
+
     //点击了添加按钮
     add() {
-      ////树形控件取值 this.$refs.tree.getCheckedKeys()
+      // 调用一下验证
+      if (!this.checkedData()) {
+        return;
+      }
+      //树形控件取值 this.$refs.tree.getCheckedKeys()
       this.form.menus = JSON.stringify(this.$refs.tree.getCheckedKeys());
       reqRoleAdd(this.form).then((res) => {
         if (res.data.code == 200) {

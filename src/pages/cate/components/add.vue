@@ -22,17 +22,6 @@
           <el-input v-model="form.catename"></el-input>
         </el-form-item>
 
-        <!-- 原生 上传文件 start-->
-        <!-- 如果添加成功之后，再次添加上一次的文件，就不会再出发change；如果要解决这个bug,我们就在弹框消失的时候，将input也销毁 -->
-        <!-- <el-form-item label="图片" v-if="form.pid!=0">
-          <div class="my-upload">
-            <h3>+</h3>
-            <img class="img" v-if="imgUrl" :src="imgUrl" alt="">
-            <input v-if="info.isshow" class="my-input" type="file" @change="getFile" />
-          </div>
-        </el-form-item> -->
-        <!-- 原生 上传文件 end-->
-
         <!-- element-ui 上传文件 start -->
         <el-form-item label="图片">
           <el-upload
