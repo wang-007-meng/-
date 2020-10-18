@@ -352,12 +352,12 @@ export const reqGoodsList = (params) => {
   })
 }
 //删除
-export const reqGoodsDel = (params) => {
+export const reqGoodsDel = (id) => {
   return axios({
     url: baseUrl + "/api/goodsdelete",
     method: "post",
     data: qs.stringify({
-      params
+      id: id
     })
   })
 }

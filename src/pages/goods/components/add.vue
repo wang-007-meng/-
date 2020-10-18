@@ -91,7 +91,6 @@
           ></el-switch>
         </el-form-item>
         <el-form-item label="商品描述">
-          <!-- <textarea v-model="form.description" cols="30" rows="10"></textarea> -->
           <!-- 富文本 -->
           <div v-if="info.isshow" id="editor"></div>
         </el-form-item>
@@ -246,8 +245,44 @@ export default {
       //商品属性list
       this.goodsAttrList = [];
     },
+    // 验证
+    checkedData() {
+      if (this.form.goodsname == "") {
+        warningAlert("请输入名称");
+        return false;
+      }
+      if (this.form.first_cateid == "") {
+        warningAlert("请选择一级分类");
+        return false;
+      }
+      if (this.form.second_cateid == "") {
+        warningAlert("请选择二级分类");
+        return false;
+      }
+      if (this.form.price == "") {
+        warningAlert("请输入价格");
+        return false;
+      }
+      if (this.form.market_price == "") {
+        warningAlert("请输入市场价格");
+        return false;
+      }
+      if (this.form.specsid == "") {
+        warningAlert("请选择商品规格");
+        return false;
+      }
+
+      if (this.imgUrl == "") {
+        warningAlert("请输入图片，亲");
+        return false;
+      }
+      return true;
+    },
     // 点击添加按钮
     add() {
+      if (!this.checkedData()) {
+        return;
+      }
       // 将富文本编辑器的内容取出来给form.description
       this.form.description = this.editor.txt.html();
       let data = {

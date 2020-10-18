@@ -96,8 +96,31 @@ export default {
       };
     },
 
+    // 验证
+    checkedData() {
+      // 验证账号密码
+      if (this.form.username == "") {
+        warningAlert("用户名不能为空");
+        return false;
+      }
+      if (this.form.password == "") {
+        warningAlert("密码不能为空");
+        return false;
+      }
+      // roleid
+      if (this.form.roleid == "") {
+        warningAlert("请选择所属角色");
+        return false;
+      }
+      return true;
+    },
     //点击了添加按钮
     add() {
+      // 验证
+      if (!this.checkedData()) {
+        return;
+      }
+
       reqManageAdd(this.form).then((res) => {
         if (res.data.code == 200) {
           //成功
@@ -134,6 +157,9 @@ export default {
     },
     //修改
     update() {
+      if (!this.checkedData()) {
+        return;
+      }
       reqManageUpdate(this.form).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.msg);

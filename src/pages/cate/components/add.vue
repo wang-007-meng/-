@@ -115,8 +115,25 @@ export default {
       };
       this.imgUrl = "";
     },
+
+    // 验证
+    checkedData() {
+      // 验证名称不能为空
+      if (this.form.catename == "") {
+        warningAlert("用户名不能为空");
+        return false;
+      }
+      if (this.imgUrl == "") {
+        warningAlert("亲，你的图片还未添加");
+        return false;
+      }
+      return true;
+    },
     // 点击添加按钮
     add() {
+      if (!this.checkedData()) {
+        return;
+      }
       reqCateAdd(this.form).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.msg);
@@ -146,6 +163,9 @@ export default {
     },
     // 修改
     update() {
+      if (!this.checkedData()) {
+        return;
+      }
       reqCateUpdate(this.form).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.code);

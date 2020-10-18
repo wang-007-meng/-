@@ -81,7 +81,7 @@ export default {
     //删除2
     dele(id) {
       //点了确定按钮
-      reqGoodsDel({ id: id }).then((res) => {
+      reqGoodsDel(id).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.msg);
           this.reqListAction();

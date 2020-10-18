@@ -2,54 +2,14 @@
 
 > A Vue.js project
 
-
-
 # 后台项目进度
 
-#### 首页OK
+#### 首页 OK
 
-#### 登录OK
+#### 登录 OK
 
-#### 系统设置OK
+#### 系统设置 OK
 
-#### 商城管理
+#### 商城管理 ok
 
-##### 		    商品分类OK
-
-##### 		    商品规格OK
-
-##### 		    商品管理OK
-
-##### 		    会员管理OK
-
-#####     轮播图Ok
-
-#####      秒杀活动Ok
-
-#####      正则ing
-
-
-
-
-
-
-
-
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 部分正则已完成
